@@ -589,21 +589,6 @@ class DownSample3D(nn.Module):
                 x_first, x_rest = x[..., 0], x[..., 1:]
 
                 if x_rest.shape[-1] > 0:
-                    # print("x_first.shape",x_first.shape)
-                    # print("x_rest.shape",x_rest.shape)
-                    
-                    # threshold = 524288*128
-
-                    # if x_rest.shape[0]*x_rest.shape[1] > threshold:
-                    #     print("use split pooling", x_rest.shape[0], x_rest.shape[1])
-                    #     threshold_0 = threshold // x_rest.shape[1]
-                    #     num_chunks = (x_rest.shape[0] + threshold_0 - 1) // threshold_0  # 计算需要分割的块数
-                    #     x_chunks = torch.chunk(x_rest, num_chunks, dim=0)  # 按照第一维度分割
-                    #     pooled_chunks = [torch.nn.functional.avg_pool1d(chunk, kernel_size=2, stride=2) for chunk in x_chunks]
-                    #     x_rest = torch.cat(pooled_chunks, dim=0)  # 重新拼接
-                    # else:
-                    #     x_rest = torch.nn.functional.avg_pool1d(x_rest, kernel_size=2, stride=2)
-
                     x_rest = torch.nn.functional.avg_pool1d(x_rest, kernel_size=2, stride=2)
                 x = torch.cat([x_first[..., None], x_rest], dim=-1)
                 x = rearrange(x, "(b h w) c t -> b c t h w", h=h, w=w)
