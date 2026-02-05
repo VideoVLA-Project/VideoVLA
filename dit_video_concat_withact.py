@@ -1352,30 +1352,3 @@ class DiffusionTransformer_withact(BaseModel):
 
         # print(f"DiffusionTransformer forward all time",time.time()-curr_time)
         return output
-
-
-
-def create_casual_action_mask(seq_len, action_length, device=None):
-    """
-    构造 attention mask:
-    - 后 action_length 个 token 可见所有
-    - 前面 token 只能看前组
-    - mask 形状为 (batch_size, num_heads, L, S)，bool 类型
-    """
-    T = seq_len
-    A = action_length
-
-    # 基础 mask: shape (L, S)
-    base_mask = torch.zeros((T, T), dtype=torch.bool, device=device)
-
-    # 前组: index 0 ~ T-A-1
-    base_mask[:T-A, :T-A] = True
-
-    # 后组: index T-A ~ T-1
-    base_mask[T-A:, :] = True  # 后组能看到全部
-
-    # 扩展到 (B, H, L, S)
-    # full_mask = base_mask.unsqueeze(0).unsqueeze(0).expand(batch_size, num_heads, T, T)
-
-    return base_mask
-
