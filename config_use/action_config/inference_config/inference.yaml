@@ -1,0 +1,19 @@
+args:
+  image2video: true # True for image2video, False for text2video
+  latent_channels: 16
+  mode: inference
+  load: ckpts/base_ckpt
+  batch_size: 1
+  sampling_image_size: [ 256, 256 ]
+  sampling_num_frames: 13  # Must be 13, 11 or 9Z
+  sampling_fps: 8
+  bf16: True 
+  output_dir: outputs/
+  force_inference: True
+  input_type: txt
+  input_file: config_use/action_config/inference_config/test.txt
+
+action_config:
+  action_lenght: 6
+  action_dim: 7
+  robot_ids: 1

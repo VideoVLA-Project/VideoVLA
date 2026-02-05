@@ -14,9 +14,50 @@ This repository contains the **official implementation** of the paper:
 
 📄 **Paper:**  [Paper Link](https://arxiv.org/pdf/2512.06963)
 
-## 🚧 Code Release Status
+<!-- ## 🚧 Code Release Status
 
-The official code for **VideoVLA** will be **released very soon**.
+The official code for **VideoVLA** will be **released very soon**. -->
+
+## 1. Quick Start
+
+First, prepare the runtime environment and install all required dependencies by running:
+
+```bash
+bash build.sh
+```
+
+## 2. Downloading the Pretrained Checkpoint
+
+
+Our method relies on pretrained components from **CogVideo**. You can follow the official CogVideo instructions to obtain the pretrained checkpoints:
+[CogVideo](https://github.com/zai-org/CogVideo?tab=readme-ov-file#sat)
+
+Specifically, download:
+
+* **T5** checkpoint
+* **VAE** checkpoint
+
+
+
+After downloading, update the checkpoint paths in the following configuration file:
+
+```text
+config_use/action_config/videovla_config.yaml
+```
+
+Make sure the paths correctly point to the downloaded T5 and VAE checkpoints before starting training or evaluation.
+
+---
+
+## 3. Inference
+
+This section describes how to run inference with a trained model checkpoint to generate video and action.
+
+```bash
+python sample_video_action.py \
+  --base config_use/action_config/videovla_config.yaml config_use/action_config/inference_config/inference.yaml
+```
+
 
 ## Citations
 ```bibtex
@@ -32,5 +73,5 @@ The official code for **VideoVLA** will be **released very soon**.
 ```
 
 
-
-*Code coming soon.* 🚀
+<!-- 
+*Code coming soon.* 🚀 -->
